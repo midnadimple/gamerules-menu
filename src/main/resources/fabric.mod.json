@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "id": "examplemod",
+  "id": "gamerulesmenu",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This mod aims to help new BTA modders.",
+  "name": "Gamerules Menu",
+  "description": "This mod adds a menu for configuring Gamerules when creating worlds",
   "authors": [
-    "Turnip Labs"
+    "midnadimple"
   ],
   "contact": {
     "homepage": "",
-    "sources": ""
+    "sources": "https://github.com/midnadimple/gamesrules-menu"
   },
 
 	"icon": "icon.png",
@@ -19,20 +19,20 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-			"turniplabs.examplemod.ExampleMod"
+			"midnadimple.gamerulesmenu.GamerulesMenu"
     ],
 		"beforeGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"midnadimple.gamerulesmenu.GamerulesMenu"
 		],
 		"afterGameStart": [
-			"turniplabs.examplemod.ExampleMod"
+			"midnadimple.gamerulesmenu.GamerulesMenu"
 		],
 		"recipesReady": [
-			"turniplabs.examplemod.ExampleMod"
+			"midnadimple.gamerulesmenu.GamerulesMenu"
 		]
 	},
   "mixins": [
-      "examplemod.mixins.json"
+      "gamerulesmenu.mixins.json"
   ],
 
   "depends": {
