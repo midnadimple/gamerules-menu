@@ -9,7 +9,6 @@ import net.minecraft.core.data.gamerule.GameRule;
 import net.minecraft.core.data.gamerule.GameRuleBoolean;
 import net.minecraft.core.data.registry.Registries;
 import net.minecraft.core.lang.I18n;
-import net.minecraft.core.sound.SoundCategory;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
@@ -34,27 +33,24 @@ public class NewGamerulesMenu extends GuiScreen {
 
 	@Override
 	public void init() {
-		controlList.add(this.cheatsButton = new GuiButton(0, this.width / 2 - 100, BUTTON_BORDER_OFFSET, 200, 20, ""));
-
 		int i = 2;
 		for (GameRule<?> gameRule : Registries.GAME_RULES) {
-			GuiButton guiButton = new GuiButton(i, this.width - BUTTON_BORDER_OFFSET - 60 , (int) (2 * BUTTON_BORDER_OFFSET + (i - 2) * BUTTON_BORDER_OFFSET * 0.75 - scrollFloat), 50, 20, "");
+			GuiButton guiButton = new GuiButton(i, this.width - BUTTON_BORDER_OFFSET - 100 , (int) (2 * BUTTON_BORDER_OFFSET + (i - 2) * BUTTON_BORDER_OFFSET * 0.75 - scrollFloat), 50, 20, "");
 			controlList.add(guiButton);
 
-			Boolean value;
-			if (GamerulesMenu.GAMERULE_COLLECTION_EMPTY) {
+			if (!GamerulesMenu.gameRuleList.contains(gameRule)) {
 				GamerulesMenu.gameRuleList.add(gameRule);
+			}
+
+			Boolean value = (Boolean) GamerulesMenu.gameRuleCollection.getValue(gameRule);
+			if (value == null) {
 				value = (Boolean) gameRule.getDefaultValue();
-			} else {
-				value = (Boolean) GamerulesMenu.gameRuleCollection.getValue(gameRule);
 			}
 			gameRuleButtons.put(guiButton, value);
 			i++;
 		}
-		if (GamerulesMenu.GAMERULE_COLLECTION_EMPTY) {
-			GamerulesMenu.GAMERULE_COLLECTION_EMPTY = false;
-		}
 
+		controlList.add(this.cheatsButton = new GuiButton(0, this.width / 2 - 100, BUTTON_BORDER_OFFSET, 200, 20, ""));
 		controlList.add(new GuiButton(1, this.width / 2 - 100, this.height - BUTTON_BORDER_OFFSET, 200, 20, loc.translateKey("gamerulesmenu.goback")));
 
 		updateButtons();
@@ -102,7 +98,7 @@ public class NewGamerulesMenu extends GuiScreen {
 
 		AtomicInteger i = new AtomicInteger();
 		for (GameRule<?> gameRule : GamerulesMenu.gameRuleList) {
-			drawStringCentered(fontRenderer, gameRule.getKey(), BUTTON_BORDER_OFFSET + 60, (int) (2.15 * BUTTON_BORDER_OFFSET + i.get() * BUTTON_BORDER_OFFSET * 0.75 - scrollFloat), 0xFFFFFF);
+			drawString(fontRenderer, gameRule.getKey(), BUTTON_BORDER_OFFSET + 50, (int) (2.15 * BUTTON_BORDER_OFFSET + i.get() * BUTTON_BORDER_OFFSET * 0.75 - scrollFloat), 0xFFFFFF);
 			i.getAndIncrement();
 		}
 
@@ -132,6 +128,5 @@ public class NewGamerulesMenu extends GuiScreen {
 				}
 			}
 		}
-		this.mc.sndManager.playSound("random.click", SoundCategory.GUI_SOUNDS, 1.0F, 1.0F);
 	}
 }

@@ -17,7 +17,6 @@ public class GamerulesMenu implements ModInitializer, GameStartEntrypoint, Recip
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public static GameRuleCollection gameRuleCollection = new GameRuleCollection();
-	public static boolean GAMERULE_COLLECTION_EMPTY = true;
 	public static final List<GameRule<?>> gameRuleList = new ArrayList<>();
 
 	@Override
